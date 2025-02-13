@@ -2,13 +2,15 @@
 
 Generació d'un puzle o trencaclosques amb programació orientada a objectes, herència i escoltadors d'esdeveniments. El programa inclou càlcul eficient de puntuacions i validació de moviments, amb 9 casos particulars de diferents programacions de comparació quan es clica una cel·la en funció de la posició d'aquesta (podeu veure-ho explicat a mà alçada dins la imatge [ilustracioComparacions.jpg](ilustracioComparacions.jpg)). S'han implementat funcions de swap entre elements del DOM i arrays subjacents. També incorpora selectors de files i dificultat per generar matrius inicials amb complexitat ajustada. Els escoltadors detecten la cel·la clicada a partir dels seus IDs, i la taula es genera dinàmicament dins l'article amb id "contenidorMatriu". 
 
-# CASOS D'ÚS
+# CASOS D'US POSSIBLES
 
- - **Dificultat** (no aplicable a 2x2):
+Es generen uj ntotal de 5 casos d'ús del trencaclosques, que resulten de les combinacions seguents:
+
+ - `Dificultat` (no aplicable a 2x2):
     * Fàcil: Es pot resoldre movent les quatre peces de l'escaire inferior dret.
     * Difícil: la matriu es genera de forma aleatòria assgeurat que NO EXISTEIX cap peça inicialment colocada a la seva posició.
 
- - **Tamany matriu**: 2x2, 3x3 o 4x4.
+ - `tamany de la matriu`: $2 \times 2$, $3 \times 3$ o $4 \times 4$.
 
 # CONTEXT 
 
