@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- AUTOR: 
+            NOM: Santiago Sánchez Sans
+            NIA: 12720004-->
+    <!--Fem servir diversos arxius javascript:
+
+    1. funcionsAuxiliars: funcions que no hem enmarcat sota el paradigma OOP en cap classe, i que es trobaran accessible des 
+    de l'exterior i des de tota la resta d'arxius javascript (per això el carreguem primer) 
+    2. lògicaMatricial: un arxiu on represento les classes de les matrius que intervenen en el problema
+        una classe per definir matrius quadrades amb zeros a partir del nombre de files indicat i subclasses
+        que hereten d'ella -->
+    <script src="js/funcionsAuxiliars.js"></script> 
+    <script src="js/logicaMatricial.js"></script>
+    <script src="js/vistaDom.js" defer></script>
+    <script src="js/main.js" defer></script>
+
+    <link rel="stylesheet" href="css/estils.css">
+</head>
+<body id = "contenidorPare">
+    <!-- Contingut principal de la pàgina: joc del puzzle-->
+    <main>
+        <section id ="principal">
+            <article>
+                <h1>Puzzle</h1>
+            </article>
+            <article id = "contenidorMatriu"></article>
+        </section>
+
+        <section id = "selectorsiMarcadors">
+            <article id = "dificultat">
+                <p>nreFiles</p>
+                <select name="dificultat" id="selectDificultat"> <!--selector de dificiultat: per defecte 4 files, el més difícil, el que es demanava a l'enunciat-->
+                    <option value="2">2 files</option>
+                    <option value="3">3 files</option>
+                    <option value="4" selected>4 files</option> 
+                </select>          
+            </article>
+            <article id = "informacioMarcador">
+                <p>marcador</p>
+                <p></p> <!--p:lastChild:  on sortirà el marcador: infomració de les cel·les que l'usuari té col·locades bé per ara-->
+            </article>
+            <article id = "resetejarJoc">
+                <p>resetejarJoc</p>
+                <button>refresca!</button>
+            </article>
+        </section>
+        <section id ="llocGrauDificultat">
+            <p>grau de dificultat</p>
+            <select name="grauDificultat" id="grauDificultat"> <!--selector de dificiultat: per defecte 4 files, el més difícil, el que es demanava a l'enunciat-->
+                <option value="facil">Fàcil</option>
+                <option value="dificil" selected>Difícil</option>
+            </select>  
+        </section>
+    </main>
+    <!-- contingu dels comentaris per entrendre el més fonamental del programa 
+        tant en la seva usabilitat com en l'estructura d'arxius i classes-->
+    <aside>
+        <button class = "botoTancarAside">x</button>
+        <h1>Estructura del programa</h1>
+        <p> Dins <i>main.js</i> instanciem <b><u>tres objectes</u></b>
+            de tres classes definides dins <i>logicaMatricial.js</i>. Es recomana a l'usuari que 
+            <span class = "emfasisVermell">obri les opcions de
+            desenvolupador (F12) mentre juga i observi en temps real </span> com evolucionen les instàncies mencionades. Cada una de les classes i de les seves respectives instàncies (objectes) 
+            representa un aspecte diferent de la lògica matricial necessària per representar el funcionament intern del joc, concretament en nomenclatura <i>classe(Objecte)</i> tenim:</p>
+            <ul>
+                <li><span class = "etiquetesMatriu">matriuCorrecta (mc)</span>: la matriu quadrada a la que l'usuari vol arribar per així solucionar el puzzle (no canvia a menys que variem el nombre de files de la matriu a través del desplegable). </li>
+                <li><span class = "etiquetesMatriu">matriuJugador (mj)</span>: la matriu quadrada que recull en temps real els canvis fets pel jugador a mesura que va jugant, inicialment ja plena amb una configuració de nombres inicial perquè l'usuari arribi a resoldre-la (és a dir, que arribi a aconseguir que mj sigui idèntica a mc).</li>
+                <li><span class = "etiquetesMatriu">marcador (mrc)</span>: la matriu quadrada que surt de comparar posició a posició la mc amb la mj. En la posició ij de marcador hi haurà un 1 si i només si mc[i][j] == mj[i][j], i 0 altrament.</li>
+            </ul> 
+            
+        <p>Dins <i>main.js</i> també instanciem <b><u>dos objectes</u></b> de classes definides dins <i>vistaDom.js</i>, que seran útils per poder representar la lògica matricial de 
+            forma visible i tangible dins el DOM. Aquestes dues classes són:
+
+        <ul>
+            <li><span class = "etiquetesDom">marcadorDom (mrcDom)</span>: permet mostrar el marcador en el DOM, dins un element <b>p</b> (es crea a partir de les variacions de puntuació que produeix cada swap de cel·la que efectua el jugador). Aquest marcador es mostra com una proporció de cel·les ben posades de la matriu de jugador (encertades) respecte al total de cel·les de la mateixa matriu i, també, el percentatge d'encerts.</li>
+            <li><span class = "etiquetesDom">taulaDom (tDom)</span>: ens permet representar l'estat actual de la matriu del jugador (mj) en el DOM i fer les crides necessaries a les tres classes mencionades anteriorment dins de <i>logicaMatricial.js</i> per poder decidir si la puntuació aumenta o disminueix amb cada moviment del puzzle (per exemple, veure funció privada <span class="estilFuncio">#fesSwapCelesTaula()</span>, que és on està gran part de la feina feta d'aquest exercici).</li>            
+        </ul> 
+
+        <p>Finalment tenim <i>funcionsAuxiliars.js</i> on hi ha les funcions que no s'ha sabut o s'ha pogut enmarcar dins de cap classe.</p>
+
+        <h2>Ampliació d'exercici:</h2>
+        <p>Desplegable <b class="encerclat">grau de dificultat</b> (vegeu NOTA 1 per veure la funció que l'implementa):</p>
+            <ul>
+                <li>
+                    <span class = "etiquetesDesplegables">Fàcil</span>: si es sel·lecciona aquesta opció la matriu del jugador és inicialitzada 
+                    i mostrada en el DOM perquè l'usuari començi a jugar amb totes les posicions ja correctament
+                    col·locades, a excepció de les 4 posicions trobades a la part inferior dreta de la matriu de jugador
+                    (que seran resolubles sempre rotant-les en sentit horari o antihorari). Està pensat per poder testejar el sistema més que no pas per jugar-hi.
+                </li>
+                <li>
+                    <span class = "etiquetesDesplegables">Difícil</span> (vegeu NOTA 2): és el cas en que la matriu del jugador és inicialitzada 
+                    amb tots els valors de forma aleatòria, <u>amb la restricció</u> de que ni tan sols com a producte de 
+                    l'atzar es podrà permetre tenir un sol valor correctament col·locat dins de la mateixa en inicilitzar la matriu del jugador en 
+                    començar el joc (això ho solucionem amb el while de la funció <span class="estilFuncio">main()</span> dins de <i>main.js</i>).
+                </li>
+            </ul> 
+        <p>Desplegable <b class="encerclat">nreFiles</b> (vegeu NOTA 3):</p>
+
+        <ul>
+            <li>
+                <span class = "etiquetesDesplegables">2 files</span>: matriu quadrada amb 2 files i 2 columnes (2x2). Inicialment contindrà una de les 3 seqüències resolubles possibles per a aquesta configuració sel·leccionades aleatòriament (per més informació veure  <span class="estilFuncio">#emplenaMatriuJUGADOR2x2()</span>) dins <i>logicaMatricial.js i consulteu NOTA 2.</i>
+            </li>
+            <li>
+                <span class = "etiquetesDesplegables">3 files</span>: matriu quadrada amb 3 files i 3 columnes (nombres de 1 a 8, més casella en blanc -nombre 0- arranjable segons el desplegable de dificultat) [Consulteu NOTA 4].
+            </li>
+            <li>
+                <span class = "etiquetesDesplegables">4 files</span>: matriu quadrada amb 4 files i 4 columnes (nombres de 1 a 15, més casella en blanc -nombre 0- arranjable segons el desplegable de dificultat).
+            </li>
+        </ul> 
+
+
+        <article class="liniaCustomitzada"></article>
+
+        <p>NOTA 1: podeu veure funció <span class="estilFuncio">#emplenaMatriuJUGADOR_NxN()</span> (per entendre-la podeu consultar-ne una altra que n'és un cas particular: <span class="estilFuncio">#emplenaMatriuJUGADOR2x2()</span>).</p>
+        <p>NOTA 2: El selector de dificultat no està disponible per a matrius 2x2 perquè, en ser aquestes tan petites, sovint contenen matrius de jugador inicialitzades que no es poden resoldre.</p>
+        <p>NOTA 3: La lògica de programació permetria fer una matriu de n·n on n>=2. No existeix un límit teòric de dimensions.
+            La cota superior de n aquí es 4 ja que se'ns dóna un total de 16 imatges i per tant no podem donar a l'usuari la possibilitat de resoldre puzzles més grans que el que emana d'una matriu quadrada de 4 files.</p>
+        <p>NOTA 4: Atenció! En el grau de dificiultat difícil per a les matrius 3x3 probablement existeixin configuracions inicials no resolubles, però no s'ha aplicat cap procediment per evitar-les.</p>
+
+
+    </aside>
+</body>
+</html>

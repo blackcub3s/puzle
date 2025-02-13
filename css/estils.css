@@ -1,0 +1,166 @@
+/*AUTOR: 
+    NOM: Santiago Sánchez Sans
+    NIA: 12720004
+*/
+
+h1 {
+    font-size: 1.7em;
+}
+
+#principal {
+    display: flex;
+    flex-direction: column;       
+    align-items: center; 
+    justify-content: center;
+}
+
+#selectorsiMarcadors {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+}
+
+/*centro breFiles marcador i resetejarJoc*/
+main > #selectorsiMarcadors {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+
+#resetejarJoc button {
+    padding: .5em;
+    background-color: rgb(50, 130, 50);
+    border-radius: .4em;
+    color: white;
+    border: 0px;
+
+    transition: background-color .15s ease-in-out,
+                box-shadow .05s ease-in-out;
+    
+}
+
+#resetejarJoc button:hover {
+    background-color: rgb(17, 155, 150);
+    box-shadow: 1px 2px 3px rgb(125, 117, 117);
+}
+
+#llocGrauDificultat {
+    display: flex;
+    justify-content: center;
+    padding-top: 2em;
+}
+
+#llocGrauDificultat >  p {
+    padding-right: 1em;
+}
+
+#contenidorPare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+/* Estil per a l'aside */
+aside {
+    position: relative; /* Per col·locar la creu dins l'aside */
+    width: 80vh;
+    
+    padding: 0em 2em 1em 2em;
+    border: 1px solid #ccc;
+    background-color: white;
+    box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 1em auto; /*centro vertical i horitzontalment dins la meitat dreta de la pantalla*/
+    border-radius: 1em;
+
+    transition: box-shadow ease-in-out .2s;
+}
+
+aside:hover {
+    box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.35);
+}
+
+/* Estil per a la creu */
+.botoTancarAside {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.botoTancarAside:hover {
+    background-color: #cc0000;
+}
+
+.etiquetesMatriu {
+    font-weight: bold;
+    color: rgb(101, 10, 10);
+}
+
+.etiquetesDom {
+    font-weight: bold;
+    color: green;
+}
+
+.etiquetesDesplegables {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.emfasisVermell {
+    color: red;
+    font-weight: bold;
+}
+
+.liniaCustomitzada {
+    height: 1px; /*gruix de la linia*/
+    background-color: #650b0b;
+    margin: 20px 0;
+    width: 100%;
+    display: block;
+}
+
+.estilFuncio {
+    font-family: 'CMU Serif', 'Times New Roman', serif; /*Tipus de lletra semblant a LaTeX*/
+    font-style: italic; 
+    color: #ad4b0a;
+}
+
+/*posem espai per sobre dels li del aside*/
+#contenidorPare aside li {
+    padding-top: .5em;
+}
+
+/*Emfasiztem el nom dels desplegables amb un encerclat bonic
+i un hover que canvii de color en passar-hi per sobre.*/
+.encerclat {
+    border: 1px dashed black;
+    border-radius: .3em;
+    padding: .2em;
+    transition: ease-in-out background-color .15s;
+}
+
+.encerclat:hover {
+    background-color: rgb(245, 238, 238);
+}
+
+
+/* Poso una media query per evitar que el contenidor aside dificulti veure
+la taula posada en <main></main> quan estem en una pantalla que s'hagi
+fet petitita (per exemple, en obrir les opcions de desenvolupador). Per sota
+d'un cert ample -hem decidit 1200px, empíricament- passem el grid de dues
+columnes a una sola.*/
+@media (max-width: 1200px) {
+    #contenidorPare {
+        grid-template-columns: 1fr; 
+    }
+}
